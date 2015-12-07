@@ -2,7 +2,7 @@ INCDIR = ./inc
 SRCDIR = ./src
 OBJDIR = ./obj
 OUTDIR = ./bin
-TESTDIR = $(SRCDIR)/unit_tests
+TESTDIR = ./tests
 
 SRCS = $(wildcard $(SRCDIR)/*.cpp $(SRCDIR)/word/*.cpp)
 TESTS = $(wildcard $(TESTDIR)/*.cpp)
@@ -44,7 +44,8 @@ POBJS := $(patsubst $(SRCDIR)/word%, $(SRCDIR)%, $(POBJS))
 POBJS := $(patsubst $(SRCDIR)%, $(OBJDIR)%, $(POBJS))
 
 TESTOBJS := $(patsubst %.cpp, %.o, $(TESTS))
-TESTOBJS := $(patsubst $(SRCDIR)%, $(OBJDIR)%, $(TESTOBJS))
+#TESTOBJS := $(patsubst $(SRCDIR)%, $(OBJDIR)%, $(TESTOBJS))
+TESTOBJS := $(patsubst $(TESTDIR)%, $(OBJDIR)/unit_tests%, $(TESTOBJS))
 
 libgur.so: $(POBJS)
 	$(CXX) -shared -Wl,-soname,$@ -o $(OUTDIR)/$@ $^ $(CXXFLAGS)
