@@ -4,8 +4,10 @@ OBJDIR = ./obj
 OUTDIR = ./bin
 TESTDIR = ./tests
 
-SRCS = $(wildcard $(SRCDIR)/*.cpp $(SRCDIR)/word/*.cpp)
-TESTS = $(wildcard $(TESTDIR)/*.cpp)
+OBJTESTDIR = $(OBJDIR)/$(notdir $(TESTDIR))
+
+SRCS = $(wildcard $(SRCDIR)/*.cpp $(SRCDIR)/**/*.cpp)
+TESTS = $(wildcard $(TESTDIR)/*.cpp $(TESTDIR)/**/*.cpp)
 
 CXX = g++
 CXXFLAGS = -I$(INCDIR) -Wall -Wextra -Wpedantic -Weffc++ \
@@ -24,28 +26,21 @@ test: unit_tests
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
-$(OBJDIR)/%.o: $(SRCDIR)/word/%.cpp
-	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 $(OBJDIR)/%.po: $(SRCDIR)/%.cpp
 	$(CXX) -fPIC -c -o $@ $< $(CXXFLAGS)
-$(OBJDIR)/%.po: $(SRCDIR)/word/%.cpp
-	$(CXX) -fPIC -c -o $@ $< $(CXXFLAGS)
 
-$(OBJDIR)/unit_tests/%.o: $(TESTDIR)/%.cpp
+$(OBJTESTDIR)/%.o: $(TESTDIR)/%.cpp
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 OBJS := $(patsubst %.cpp, %.o, $(SRCS))
-OBJS := $(patsubst $(SRCDIR)/word%, $(SRCDIR)%, $(OBJS))
 OBJS := $(patsubst $(SRCDIR)%, $(OBJDIR)%, $(OBJS))
 
 POBJS := $(patsubst %.cpp, %.po, $(SRCS))
-POBJS := $(patsubst $(SRCDIR)/word%, $(SRCDIR)%, $(POBJS))
 POBJS := $(patsubst $(SRCDIR)%, $(OBJDIR)%, $(POBJS))
 
 TESTOBJS := $(patsubst %.cpp, %.o, $(TESTS))
-#TESTOBJS := $(patsubst $(SRCDIR)%, $(OBJDIR)%, $(TESTOBJS))
-TESTOBJS := $(patsubst $(TESTDIR)%, $(OBJDIR)/unit_tests%, $(TESTOBJS))
+TESTOBJS := $(patsubst $(TESTDIR)%, $(OBJTESTDIR)%, $(TESTOBJS))
 
 libgur.so: $(POBJS)
 	$(CXX) -shared -Wl,-soname,$@ -o $(OUTDIR)/$@ $^ $(CXXFLAGS)
@@ -59,4 +54,5 @@ unit_tests: $(TESTOBJS)
 .PHONY: clean
 
 clean:
-	rm -f $(OUTDIR)/* $(OBJDIR)/*.o $(OBJDIR)/*.po $(OBJDIR)/unit_tests/*.o
+	rm -f $(OUTDIR)/* $(OBJDIR)/*.o $(OBJDIR)/*.po $(OBJDIR)/**/*.o \
+		$(OBJDIR)/**/*.po
