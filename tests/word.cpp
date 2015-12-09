@@ -67,6 +67,18 @@ BOOST_AUTO_TEST_SUITE(Constructors)
 		BOOST_CHECK_EQUAL(gur::Letter(gur::G3), word[4]);
 	}
 
+	BOOST_AUTO_TEST_CASE(StringMove)
+	{
+		std::string sahil = "ਸਾਹਿਲ";
+		gur::Word word(std::move(sahil));
+
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A4), word[0]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H3), word[1]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A5), word[2]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H4), word[3]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::G3), word[4]);
+	}
+
 	BOOST_AUTO_TEST_CASE(CharPointer)
 	{
 		const char* const sahil = "ਸਾਹਿਲ";
