@@ -19,6 +19,7 @@
 
 #include <gur.hpp>
 #include <utility>
+#include <sstream>
 
 namespace gur
 {
@@ -46,12 +47,14 @@ namespace gur
 
 	Word::Word(const std::string &s) : word(0)
 	{
-		this->deduce(s.c_str());
+		std::istringstream iss(s);
+		iss >> *this;
 	}
 
 	Word::Word(const char* const &c) : word(0)
 	{
-		this->deduce(c);
+		std::istringstream iss(c);
+		iss >> *this;
 	}
 
 	Word::~Word() {}
