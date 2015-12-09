@@ -414,6 +414,78 @@ BOOST_AUTO_TEST_SUITE(Operators)
 BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(Iterators)
+	BOOST_AUTO_TEST_CASE(EqualTo)
+	{
+		gur::Word sahil(gur::Letter(gur::A4));
+		sahil += gur::Accent(gur::H3);
+		sahil += gur::Letter(gur::A5);
+		sahil += gur::Accent(gur::H4);
+		sahil += gur::Letter(gur::G3);
+		gur::Word sahil_copy(sahil);
+
+		gur::Word::iterator lhs = sahil.begin();
+		gur::Word::iterator rhs = sahil.begin();
+		BOOST_CHECK_EQUAL(lhs == rhs, true);
+		rhs = sahil_copy.begin();
+		BOOST_CHECK_EQUAL(lhs == rhs, false);
+
+		const gur::Word sahil_const(sahil);
+		const gur::Word sahil_const_copy(sahil_copy);
+
+		gur::Word::const_iterator lhs_const = sahil_const.begin();
+		gur::Word::const_iterator rhs_const = sahil_const.begin();
+		BOOST_CHECK_EQUAL(lhs_const == rhs_const, true);
+		rhs_const = sahil_const_copy.begin();
+		BOOST_CHECK_EQUAL(lhs_const == rhs_const, false);
+	}
+
+	BOOST_AUTO_TEST_CASE(NotEqualTo)
+	{
+		gur::Word sahil(gur::Letter(gur::A4));
+		sahil += gur::Accent(gur::H3);
+		sahil += gur::Letter(gur::A5);
+		sahil += gur::Accent(gur::H4);
+		sahil += gur::Letter(gur::G3);
+		gur::Word sahil_copy(sahil);
+
+		gur::Word::iterator lhs = sahil.begin();
+		gur::Word::iterator rhs = sahil.end();
+		BOOST_CHECK_EQUAL(lhs != rhs, true);
+		rhs = sahil_copy.begin();
+		BOOST_CHECK_EQUAL(lhs != rhs, true);
+
+		const gur::Word sahil_const(sahil);
+		const gur::Word sahil_const_copy(sahil_copy);
+
+		gur::Word::const_iterator lhs_const = sahil_const.begin();
+		gur::Word::const_iterator rhs_const = sahil_const.end();
+		BOOST_CHECK_EQUAL(lhs_const != rhs_const, true);
+		rhs_const = sahil_const_copy.begin();
+		BOOST_CHECK_EQUAL(lhs_const != rhs_const, true);
+	}
+
+	BOOST_AUTO_TEST_CASE(LessThanAndFriends)
+	{
+		gur::Word sahil(gur::Letter(gur::A4));
+		sahil += gur::Accent(gur::H3);
+		sahil += gur::Letter(gur::A5);
+		sahil += gur::Accent(gur::H4);
+		sahil += gur::Letter(gur::G3);
+
+		gur::Word::iterator lhs = sahil.begin();
+		gur::Word::iterator rhs = sahil.begin() + 1;
+
+		BOOST_CHECK_EQUAL(lhs < rhs, true);
+		BOOST_CHECK_EQUAL(lhs <= rhs, true);
+		BOOST_CHECK_EQUAL(lhs < sahil.begin(), false);
+		BOOST_CHECK_EQUAL(lhs <= sahil.begin(), true);
+
+		BOOST_CHECK_EQUAL(rhs > lhs, true);
+		BOOST_CHECK_EQUAL(rhs >= lhs, true);
+		BOOST_CHECK_EQUAL(rhs > sahil.begin() + 1, false);
+		BOOST_CHECK_EQUAL(rhs >= sahil.begin() + 1, true);
+	}
+
 	BOOST_AUTO_TEST_CASE(RangeBasedForLoop)
 	{
 		gur::Word sahil(gur::Letter(gur::A4));
