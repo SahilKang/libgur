@@ -24,7 +24,6 @@
 #include <gur.hpp>
 #include <gurmukhi.hpp>
 #include <sstream>
-#include <stdexcept>
 
 BOOST_AUTO_TEST_SUITE(Word)
 
@@ -58,32 +57,26 @@ BOOST_AUTO_TEST_SUITE(Constructors)
 
 	BOOST_AUTO_TEST_CASE(String)
 	{
-		std::string letter(gur::A1);
-		std::string unknown("unknown");
+		const std::string sahil = "ਸਾਹਿਲ";
+		gur::Word word(sahil);
 
-		gur::Word word_one(letter);
-
-		BOOST_CHECK_THROW(
-			gur::Word word_two(unknown),
-			std::invalid_argument);
-		BOOST_CHECK_EQUAL(word_one[0].str().c_str(), gur::A1);
-		BOOST_CHECK_EQUAL(letter, word_one[0].str());
-		BOOST_CHECK_EQUAL(unknown, "unknown");
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A4), word[0]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H3), word[1]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A5), word[2]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H4), word[3]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::G3), word[4]);
 	}
 
 	BOOST_AUTO_TEST_CASE(CharPointer)
 	{
-		const char* const letter = gur::A1;
-		const char* const unknown = "unknown";
+		const char* const sahil = "ਸਾਹਿਲ";
+		gur::Word word(sahil);
 
-		gur::Word word_one(letter);
-
-		BOOST_CHECK_THROW(
-			gur::Word word_two(unknown),
-			std::invalid_argument);
-		BOOST_CHECK_EQUAL(word_one[0].str().c_str(), gur::A1);
-		BOOST_CHECK_EQUAL(letter, word_one[0].str().c_str());
-		BOOST_CHECK_EQUAL(unknown, "unknown");
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A4), word[0]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H3), word[1]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A5), word[2]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H4), word[3]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::G3), word[4]);
 	}
 
 	BOOST_AUTO_TEST_CASE(Copy)
