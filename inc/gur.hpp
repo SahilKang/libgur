@@ -279,6 +279,8 @@ namespace gur
 		std::vector<std::unique_ptr<Character> >::iterator iter;
 		friend bool operator == (const iterator &lhs,
 			const iterator &rhs);
+		friend bool operator < (const iterator &lhs,
+			const iterator &rhs);
 		friend iterator operator + (iterator lhs, const iterator &rhs);
 		friend iterator operator - (iterator lhs, const iterator &rhs);
 	};
@@ -286,6 +288,12 @@ namespace gur
 	bool operator == (const Word::iterator &lhs,
 		const Word::iterator &rhs);
 	bool operator != (const Word::iterator &lhs,
+		const Word::iterator &rhs);
+	bool operator < (const Word::iterator &lhs, const Word::iterator &rhs);
+	bool operator > (const Word::iterator &lhs, const Word::iterator &rhs);
+	bool operator <= (const Word::iterator &lhs,
+		const Word::iterator &rhs);
+	bool operator >= (const Word::iterator &lhs,
 		const Word::iterator &rhs);
 	Word::iterator operator + (Word::iterator lhs,
 		const std::ptrdiff_t  &n);
@@ -324,6 +332,8 @@ namespace gur
 		std::vector<std::unique_ptr<Character> >::const_iterator iter;
 		friend bool operator == (const const_iterator &lhs,
 			const const_iterator &rhs);
+		friend bool operator < (const const_iterator &lhs,
+			const const_iterator &rhs);
 		friend const_iterator operator + (const_iterator lhs,
 			const const_iterator &rhs);
 		friend const_iterator operator - (const_iterator lhs,
@@ -333,6 +343,14 @@ namespace gur
 	bool operator == (const Word::const_iterator &lhs,
 		const Word::const_iterator &rhs);
 	bool operator != (const Word::const_iterator &lhs,
+		const Word::const_iterator &rhs);
+	bool operator < (const Word::const_iterator &lhs,
+		const Word::const_iterator &rhs);
+	bool operator > (const Word::const_iterator &lhs,
+		const Word::const_iterator &rhs);
+	bool operator <= (const Word::const_iterator &lhs,
+		const Word::const_iterator &rhs);
+	bool operator >= (const Word::const_iterator &lhs,
 		const Word::const_iterator &rhs);
 	Word::const_iterator operator + (Word::const_iterator lhs,
 		const std::ptrdiff_t &n);

@@ -131,6 +131,30 @@ namespace gur
 		return !(lhs == rhs);
 	}
 
+	bool operator < (const Word::const_iterator &lhs,
+		const Word::const_iterator &rhs)
+	{
+		return lhs.iter < rhs.iter;
+	}
+
+	bool operator > (const Word::const_iterator &lhs,
+		const Word::const_iterator &rhs)
+	{
+		return rhs < lhs;
+	}
+
+	bool operator <= (const Word::const_iterator &lhs,
+		const Word::const_iterator &rhs)
+	{
+		return !(lhs > rhs);
+	}
+
+	bool operator >= (const Word::const_iterator &lhs,
+		const Word::const_iterator &rhs)
+	{
+		return !(lhs < rhs);
+	}
+
 	Word::const_iterator operator + (Word::const_iterator lhs,
 		const std::ptrdiff_t &n)
 	{
