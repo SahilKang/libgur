@@ -187,6 +187,7 @@ namespace gur
 		Word(const Character &c);
 		Word(Character &&c) noexcept;
 		Word(const std::string &s);
+		Word(std::string &&s);
 		Word(const char* const &c);
 
 		std::size_t size() const;

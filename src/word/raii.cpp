@@ -51,6 +51,12 @@ namespace gur
 		iss >> *this;
 	}
 
+	Word::Word(std::string &&s) : word(0)
+	{
+		std::istringstream iss(std::move(s));
+		iss >> *this;
+	}
+
 	Word::Word(const char* const &c) : word(0)
 	{
 		std::istringstream iss(c);
