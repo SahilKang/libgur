@@ -212,42 +212,40 @@ BOOST_AUTO_TEST_SUITE(Operators)
 
 		BOOST_AUTO_TEST_CASE(AssignmentString)
 		{
-			std::string letter(gur::A2);
-			std::string unknown("unknown");
+			const std::string sahil = "ਸਾਹਿਲ";
+			const std::string kang = "ਕੰਗ";
 
-			gur::Word word_one(gur::A1);
-			gur::Word word_two(gur::A1);
-			
-			word_one += letter;
+			gur::Word word(sahil);
+			word += kang;
 
-			BOOST_CHECK_THROW(
-				word_two += unknown,
-				std::invalid_argument);
-			BOOST_CHECK_EQUAL(word_two[0].str().c_str(), gur::A1);
-			BOOST_CHECK_EQUAL(unknown, "unknown");
-			BOOST_CHECK_EQUAL(word_one[0].str().c_str(), gur::A1);
-			BOOST_CHECK_EQUAL(word_one[1].str().c_str(), gur::A2);
-			BOOST_CHECK_EQUAL(letter, word_one[1].str());
+			BOOST_CHECK_EQUAL(8, word.size());
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A4), word[0]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H3), word[1]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A5), word[2]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H4), word[3]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::G3), word[4]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B1), word[5]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::J3), word[6]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B3), word[7]);
 		}
 
 		BOOST_AUTO_TEST_CASE(AssignmentCharPointer)
 		{
-			const char* const letter = gur::A2;
-			const char* const unknown = "unknown";
+			const char* const sahil = "ਸਾਹਿਲ";
+			const char* const kang = "ਕੰਗ";
 
-			gur::Word word_one(gur::A1);
-			gur::Word word_two(gur::A1);
-			
-			word_one += letter;
+			gur::Word word(sahil);
+			word += kang;
 
-			BOOST_CHECK_THROW(
-				word_two += unknown,
-				std::invalid_argument);
-			BOOST_CHECK_EQUAL(word_two[0].str().c_str(), gur::A1);
-			BOOST_CHECK_EQUAL(unknown, "unknown");
-			BOOST_CHECK_EQUAL(word_one[0].str().c_str(), gur::A1);
-			BOOST_CHECK_EQUAL(word_one[1].str().c_str(), gur::A2);
-			BOOST_CHECK_EQUAL(letter, word_one[1].str().c_str());
+			BOOST_CHECK_EQUAL(8, word.size());
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A4), word[0]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H3), word[1]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A5), word[2]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H4), word[3]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::G3), word[4]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B1), word[5]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::J3), word[6]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B3), word[7]);
 		}
 
 		BOOST_AUTO_TEST_CASE(Word)
@@ -280,54 +278,62 @@ BOOST_AUTO_TEST_SUITE(Operators)
 
 		BOOST_AUTO_TEST_CASE(String)
 		{
-			std::string letter(gur::A2);
-			std::string unknown("unknown");
+			const std::string sahil = "ਸਾਹਿਲ";
+			const std::string kang = "ਕੰਗ";
 
-			gur::Word word_one(gur::Letter(gur::A1));
-			gur::Word word_two(gur::Letter(gur::A1));
-			gur::Word word_three(gur::Letter(gur::A1));
+			gur::Word first(sahil);
+			gur::Word last(kang);
+			gur::Word full = first + last;
 
-			word_two = word_one + letter;
-
-			BOOST_CHECK_THROW(
-				word_three = word_one + unknown,
-				std::invalid_argument);
-			BOOST_CHECK_EQUAL(word_three[0], gur::Letter(gur::A1));
-			BOOST_CHECK_EQUAL(unknown, "unknown");
-			BOOST_CHECK_EQUAL(word_two[0], gur::Letter(gur::A1));
-			BOOST_CHECK_EQUAL(word_two[1].str().c_str(), gur::A2);
-			BOOST_CHECK_EQUAL(letter, word_two[1].str());
-			BOOST_CHECK_EQUAL(word_one[0], gur::Letter(gur::A1));
-
-			BOOST_CHECK_EQUAL(word_one.size(), 1);
-			BOOST_CHECK_EQUAL(word_two.size(), 2);
-			BOOST_CHECK_EQUAL(word_three.size(), 1);
+			BOOST_CHECK_EQUAL(5, first.size());
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A4), first[0]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H3), first[1]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A5), first[2]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H4), first[3]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::G3), first[4]);
+			BOOST_CHECK_EQUAL(3, last.size());
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B1), last[0]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::J3), last[1]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B3), last[2]);
+			BOOST_CHECK_EQUAL(8, full.size());
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A4), full[0]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H3), full[1]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A5), full[2]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H4), full[3]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::G3), full[4]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B1), full[5]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::J3), full[6]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B3), full[7]);
 		}
 
 		BOOST_AUTO_TEST_CASE(CharPointer)
 		{
-			const char* const letter = gur::A2;
-			const char* const unknown = "unknown";
+			const char* const sahil = "ਸਾਹਿਲ";
+			const char* const kang = "ਕੰਗ";
 
-			gur::Word word_one(gur::Letter(gur::A1));
-			gur::Word word_two(gur::Letter(gur::A1));
-			gur::Word word_three(gur::Letter(gur::A1));
+			gur::Word first(sahil);
+			gur::Word last(kang);
+			gur::Word full = first + last;
 
-			word_two = word_one + letter;
-
-			BOOST_CHECK_THROW(
-				word_three = word_one + unknown,
-				std::invalid_argument);
-			BOOST_CHECK_EQUAL(word_three[0], gur::Letter(gur::A1));
-			BOOST_CHECK_EQUAL(unknown, "unknown");
-			BOOST_CHECK_EQUAL(word_two[0], gur::Letter(gur::A1));
-			BOOST_CHECK_EQUAL(word_two[1].str().c_str(), gur::A2);
-			BOOST_CHECK_EQUAL(letter, word_two[1].str());
-			BOOST_CHECK_EQUAL(word_one[0], gur::Letter(gur::A1));
-
-			BOOST_CHECK_EQUAL(word_one.size(), 1);
-			BOOST_CHECK_EQUAL(word_two.size(), 2);
-			BOOST_CHECK_EQUAL(word_three.size(), 1);
+			BOOST_CHECK_EQUAL(5, first.size());
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A4), first[0]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H3), first[1]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A5), first[2]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H4), first[3]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::G3), first[4]);
+			BOOST_CHECK_EQUAL(3, last.size());
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B1), last[0]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::J3), last[1]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B3), last[2]);
+			BOOST_CHECK_EQUAL(8, full.size());
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A4), full[0]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H3), full[1]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::A5), full[2]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::H4), full[3]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::G3), full[4]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B1), full[5]);
+			BOOST_CHECK_EQUAL(gur::Accent(gur::J3), full[6]);
+			BOOST_CHECK_EQUAL(gur::Letter(gur::B3), full[7]);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 
