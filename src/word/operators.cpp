@@ -50,14 +50,16 @@ namespace gur
 
 	Word& Word::operator += (const std::string &s)
 	{
-		this->deduce(s.c_str());
+		Word tmp(s);
+		*this += tmp;
 
 		return *this;
 	}
 
 	Word& Word::operator += (const char* const &c)
 	{
-		this->deduce(c);
+		Word tmp(c);
+		*this += tmp;
 
 		return *this;
 	}
