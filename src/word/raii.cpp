@@ -98,44 +98,16 @@ namespace gur
 
 	Word& Word::operator = (const std::string &s)
 	{
-		std::vector<std::unique_ptr<Character> > tmp(
-			std::move(this->word));
-
-		this->word.clear();
-
-		try
-		{
-			this->deduce(s.c_str());
-		}
-
-		catch (std::invalid_argument &e)
-		{
-			this->word = std::move(tmp);
-
-			throw;
-		}
+		std::istringstream iss(s); //istream clears this->word
+		iss >> *this;
 
 		return *this;
 	}
 
 	Word& Word::operator = (const char* const &c)
 	{
-		std::vector<std::unique_ptr<Character> > tmp(
-			std::move(this->word));
-
-		this->word.clear();
-
-		try
-		{
-			this->deduce(c);
-		}
-
-		catch (std::invalid_argument &e)
-		{
-			this->word = std::move(tmp);
-
-			throw;
-		}
+		std::istringstream iss(c); //istream clears this->word
+		iss >> *this;
 
 		return *this;
 	}
