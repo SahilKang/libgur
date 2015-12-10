@@ -160,36 +160,30 @@ BOOST_AUTO_TEST_SUITE(Operators)
 
 	BOOST_AUTO_TEST_CASE(AssignmentString)
 	{
-		gur::Word word_one(gur::Letter(gur::A1));
-		gur::Word word_two(gur::Letter(gur::A1));
+		const std::string sahil = "ਸਾਹਿਲ";
+		gur::Word word(gur::A1);
 
-		std::string letter(gur::A2);
-		std::string unknown("unknown");
+		word = sahil;
 
-		word_one = letter;
-
-		BOOST_CHECK_THROW(word_two = unknown, std::invalid_argument);
-		BOOST_CHECK_EQUAL(word_two[0], gur::Letter(gur::A1));
-		BOOST_CHECK_EQUAL(unknown, "unknown");
-		BOOST_CHECK_EQUAL(word_one[0].str().c_str(), gur::A2);
-		BOOST_CHECK_EQUAL(letter, word_one[0].str());
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A4), word[0]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H3), word[1]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A5), word[2]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H4), word[3]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::G3), word[4]);
 	}
 
 	BOOST_AUTO_TEST_CASE(AssignmentCharPointer)
 	{
-		gur::Word word_one(gur::Letter(gur::A1));
-		gur::Word word_two(gur::Letter(gur::A1));
+		const char* const sahil = "ਸਾਹਿਲ";
+		gur::Word word(gur::A1);
 
-		const char* const letter = gur::A2;
-		const char* const unknown = "unknown";
+		word = sahil;
 
-		word_one = letter;
-
-		BOOST_CHECK_THROW(word_two = unknown, std::invalid_argument);
-		BOOST_CHECK_EQUAL(word_two[0], gur::Letter(gur::A1));
-		BOOST_CHECK_EQUAL(unknown, "unknown");
-		BOOST_CHECK_EQUAL(word_one[0].str().c_str(), gur::A2);
-		BOOST_CHECK_EQUAL(letter, word_one[0].str().c_str());
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A4), word[0]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H3), word[1]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A5), word[2]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H4), word[3]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::G3), word[4]);
 	}
 
 	BOOST_AUTO_TEST_SUITE(Addition)
