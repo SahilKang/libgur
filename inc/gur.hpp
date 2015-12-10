@@ -231,7 +231,6 @@ namespace gur
 
 		void add(const Character &c);
 		void add(Character &&c);
-		void deduce(const char* const &c);
 
 		friend std::ostream& operator << (std::ostream& out,
 			const Word &w);

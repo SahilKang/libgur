@@ -19,45 +19,9 @@
 
 #include <gur.hpp>
 #include <typeinfo>
-#include <stdexcept>
 
 namespace gur
 {
-	void Word::deduce(const char* const &c)
-	{
-		if (Letter::is_valid(c))
-		{
-			this->add(Letter(c));
-		}
-
-		else if (Accent::is_valid(c))
-		{
-			this->add(Accent(c));
-		}
-
-		else if (Punctuation::is_valid(c))
-		{
-			this->add(Punctuation(c));
-		}
-
-		else if (Digit::is_valid(c))
-		{
-			this->add(Digit(c));
-		}
-
-		else if (Symbol::is_valid(c))
-		{
-			this->add(Symbol(c));
-		}
-
-		else
-		{
-			throw std::invalid_argument(
-			"Need to explicitly declare the type of: " +
-			std::string(c));
-		}
-	}
-
 	void Word::add(const Character &c)
 	{
 		if (typeid(c) == typeid(Letter))
