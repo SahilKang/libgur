@@ -52,7 +52,7 @@ namespace gur
 
 			if (Letter::is_valid(c))
 			{
-				w.add(letter);
+				w += letter;
 				in.clear();
 			}
 
@@ -60,8 +60,8 @@ namespace gur
 			{
 				Letter l(gur::A2);
 				Accent a(gur::H3);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -69,8 +69,8 @@ namespace gur
 			{
 				Letter l(gur::A3);
 				Accent a(gur::H4);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -78,8 +78,8 @@ namespace gur
 			{
 				Letter l(gur::A3);
 				Accent a(gur::H5);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -87,16 +87,17 @@ namespace gur
 			{
 				Letter l(gur::A1);
 				Accent a(gur::I1);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
 			else if (temp_bool(letter, gur::N1))
 			{
 				Letter l(gur::A1);
-				Accent a(gur::I2); w.add(l);
-				w.add(a);
+				Accent a(gur::I2);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -104,8 +105,8 @@ namespace gur
 			{
 				Letter l(gur::A3);
 				Accent a(gur::I3);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -113,8 +114,8 @@ namespace gur
 			{
 				Letter l(gur::A2);
 				Accent a(gur::I4);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -122,8 +123,8 @@ namespace gur
 			{
 				Letter l(gur::A1);
 				Accent a(gur::I5);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -131,8 +132,8 @@ namespace gur
 			{
 				Letter l(gur::A2);
 				Accent a(gur::J1);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -140,8 +141,8 @@ namespace gur
 			{
 				Letter l(gur::G3);
 				Accent a(gur::H2);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -149,8 +150,8 @@ namespace gur
 			{
 				Letter l(gur::A4);
 				Accent a(gur::H2);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -158,8 +159,8 @@ namespace gur
 			{
 				Letter l(gur::B2);
 				Accent a(gur::H2);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -167,8 +168,8 @@ namespace gur
 			{
 				Letter l(gur::B3);
 				Accent a(gur::H2);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -176,8 +177,8 @@ namespace gur
 			{
 				Letter l(gur::C3);
 				Accent a(gur::H2);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
@@ -185,32 +186,32 @@ namespace gur
 			{
 				Letter l(gur::F2);
 				Accent a(gur::H2);
-				w.add(l);
-				w.add(a);
+				w += l;
+				w += a;
 				in.clear();
 			}
 
 			else if (Accent::is_valid(c))
 			{
-				w.add(Accent(c));
+				w += Accent(c);
 				in.clear();
 			}
 
 			else if (Punctuation::is_valid(c))
 			{
-				w.add(Punctuation(c));
+				w += Punctuation(c);
 				in.clear();
 			}
 
 			else if (Digit::is_valid(c))
 			{
-				w.add(Digit(c));
+				w += Digit(c);
 				in.clear();
 			}
 
 			else if (Symbol::is_valid(c))
 			{
-				w.add(Symbol(c));
+				w += Symbol(c);
 				in.clear();
 			}
 
@@ -234,7 +235,7 @@ namespace gur
 			
 			else
 			{
-				w.add(Symbol(c));
+				w += Symbol(c);
 				in.clear();
 			}
 		}

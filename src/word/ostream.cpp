@@ -56,17 +56,17 @@ namespace gur
 			{
 				if (temp_bool(w[i + 1], gur::H3))
 				{
-					tmp.add(Letter(gur::M2));
+					tmp += Letter(gur::M2);
 				}
 
 				else if (temp_bool(w[i + 1], gur::I4))
 				{
-					tmp.add(Letter(gur::N3));
+					tmp += Letter(gur::N3);
 				}
 
 				else if (temp_bool(w[i + 1], gur::J1))
 				{
-					tmp.add(Letter(gur::N5));
+					tmp += Letter(gur::N5);
 				}
 
 				++i;
@@ -79,17 +79,17 @@ namespace gur
 			{
 				if (temp_bool(w[i + 1], gur::H4))
 				{
-					tmp.add(Letter(gur::M3));
+					tmp += Letter(gur::M3);
 				}
 
 				else if (temp_bool(w[i + 1], gur::H5))
 				{
-					tmp.add(Letter(gur::M4));
+					tmp += Letter(gur::M4);
 				}
 
 				else if (temp_bool(w[i + 1], gur::I3))
 				{
-					tmp.add(Letter(gur::N2));
+					tmp += Letter(gur::N2);
 				}
 
 				++i;
@@ -102,17 +102,17 @@ namespace gur
 			{
 				if (temp_bool(w[i + 1], gur::I1))
 				{
-					tmp.add(Letter(gur::M5));
+					tmp += Letter(gur::M5);
 				}
 
 				else if (temp_bool(w[i + 1], gur::I2))
 				{
-					tmp.add(Letter(gur::N1));
+					tmp += Letter(gur::N1);
 				}
 
 				else if (temp_bool(w[i + 1], gur::I5))
 				{
-					tmp.add(Letter(gur::N4));
+					tmp += Letter(gur::N4);
 				}
 
 				++i;
@@ -121,7 +121,7 @@ namespace gur
 			else if (i != w.size() - 1 && (temp_bool(w[i], gur::G3)
 				&& (temp_bool(w[i + 1], gur::H2))))
 			{
-				tmp.add(Letter(gur::O3));
+				tmp += Letter(gur::O3);
 
 				++i;
 			}
@@ -129,7 +129,7 @@ namespace gur
 			else if (i != w.size() - 1 && (temp_bool(w[i], gur::A4)
 				&& (temp_bool(w[i + 1], gur::H2))))
 			{
-				tmp.add(Letter(gur::O4));
+				tmp += Letter(gur::O4);
 
 				++i;
 			}
@@ -137,7 +137,7 @@ namespace gur
 			else if (i != w.size() - 1 && (temp_bool(w[i], gur::B2)
 				&& (temp_bool(w[i + 1], gur::H2))))
 			{
-				tmp.add(Letter(gur::P1));
+				tmp += Letter(gur::P1);
 
 				++i;
 			}
@@ -145,7 +145,7 @@ namespace gur
 			else if (i != w.size() - 1 && (temp_bool(w[i], gur::B3)
 				&& (temp_bool(w[i + 1], gur::H2))))
 			{
-				tmp.add(Letter(gur::P2));
+				tmp += Letter(gur::P2);
 
 				++i;
 			}
@@ -153,7 +153,7 @@ namespace gur
 			else if (i != w.size() - 1 && (temp_bool(w[i], gur::C3)
 				&& (temp_bool(w[i + 1], gur::H2))))
 			{
-				tmp.add(Letter(gur::P3));
+				tmp += Letter(gur::P3);
 
 				++i;
 			}
@@ -161,14 +161,14 @@ namespace gur
 			else if (i != w.size() - 1 && (temp_bool(w[i], gur::F2)
 				&& (temp_bool(w[i + 1], gur::H2))))
 			{
-				tmp.add(Letter(gur::P4));
+				tmp += Letter(gur::P4);
 
 				++i;
 			}
 
 			else
 			{
-				tmp.add(w[i]);
+				tmp += w[i];
 			}
 		}
 

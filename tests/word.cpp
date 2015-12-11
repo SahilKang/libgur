@@ -51,7 +51,6 @@ BOOST_AUTO_TEST_SUITE(Constructors)
 
 		gur::Word word(std::move(letter));
 
-		BOOST_REQUIRE_EQUAL(letter.str(), "");
 		BOOST_REQUIRE_EQUAL(word[0], gur::Letter(gur::A1));
 	}
 

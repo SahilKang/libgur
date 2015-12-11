@@ -18,6 +18,7 @@
 ******************************************************************************/
 
 #include <gur.hpp>
+#include <typeinfo>
 
 namespace gur
 {
@@ -33,9 +34,9 @@ namespace gur
 
 	Word& Word::operator += (const Word &w)
 	{
-		for (auto &i : w.word)
+		for (auto &i : w)
 		{
-			this->add(*i);
+			*this += i;
 		}
 
 		return *this;
@@ -43,7 +44,69 @@ namespace gur
 
 	Word& Word::operator += (const Character &c)
 	{
-		this->add(c);
+		const std::type_info& type = typeid(c);
+
+		if (type == typeid(Letter))
+		{
+			this->word.push_back(std::make_unique<Letter>(c));
+		}
+
+		else if (type == typeid(Accent))
+		{
+			this->word.push_back(std::make_unique<Accent>(c));
+		}
+
+		else if (type == typeid(Punctuation))
+		{
+			this->word.push_back(std::make_unique<Punctuation>(c));
+		}
+
+		else if (type == typeid(Digit))
+		{
+			this->word.push_back(std::make_unique<Digit>(c));
+		}
+
+		else
+		{
+			this->word.push_back(std::make_unique<Symbol>(c));
+		}
+
+		return *this;
+	}
+
+	Word& Word::operator += (Character &&c)
+	{
+		const std::type_info& type = typeid(c);
+
+		if (type == typeid(Letter))
+		{
+			this->word.push_back(
+				std::make_unique<Letter>(std::move(c)));
+		}
+
+		else if (type == typeid(Accent))
+		{
+			this->word.push_back(
+				std::make_unique<Accent>(std::move(c)));
+		}
+
+		else if (type == typeid(Punctuation))
+		{
+			this->word.push_back(
+				std::make_unique<Punctuation>(std::move(c)));
+		}
+
+		else if (type == typeid(Digit))
+		{
+			this->word.push_back(
+				std::make_unique<Digit>(std::move(c)));
+		}
+
+		else
+		{
+			this->word.push_back(
+				std::make_unique<Symbol>(std::move(c)));
+		}
 
 		return *this;
 	}

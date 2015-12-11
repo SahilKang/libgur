@@ -29,7 +29,7 @@ namespace gur
 	{
 		for (std::size_t i = 0; i != w.size(); ++i)
 		{
-			this->add(w[i]);
+			*this += w[i];
 		}
 	}
 	
@@ -37,12 +37,12 @@ namespace gur
 
 	Word::Word(const Character &c) : word(0)
 	{
-		this->add(c);
+		*this += c;
 	}
 
 	Word::Word(Character &&c) noexcept : word(0)
 	{
-		this->add(std::move(c));
+		*this += std::move(c);
 	}
 
 	Word::Word(const std::string &s) : word(0)
@@ -91,7 +91,7 @@ namespace gur
 	Word& Word::operator = (const Character &c)
 	{
 		this->word.clear();
-		this->add(c);
+		*this += c;
 
 		return *this;
 	}

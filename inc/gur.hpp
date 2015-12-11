@@ -216,6 +216,7 @@ namespace gur
 		const Character& operator [] (const std::size_t &i) const;
 		Word& operator += (const Word &w);
 		Word& operator += (const Character &c);
+		Word& operator += (Character &&c);
 		Word& operator += (const std::string &s);
 		Word& operator += (const char* const &c);
 
@@ -228,9 +229,6 @@ namespace gur
 		~Word();
 	private:
 		std::vector<std::unique_ptr<Character> > word;
-
-		void add(const Character &c);
-		void add(Character &&c);
 
 		friend std::ostream& operator << (std::ostream& out,
 			const Word &w);
