@@ -26,6 +26,7 @@
 #include <memory>
 #include <array>
 #include <iterator>
+#include <functional.hpp>
 
 namespace gur
 {
