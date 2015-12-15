@@ -29,7 +29,20 @@ namespace gur
 	std::string unclobber(const std::string &str);
 	const char* unclobber(const char* const &str);
 
+	bool is_letter(const std::string &str);
+	bool is_letter(const char* const &str);
 
+	bool is_accent(const std::string &str);
+	bool is_accent(const char* const &str);
+
+	bool is_punc(const std::string &str);
+	bool is_punc(const char* const &str);
+
+	bool is_digit(const std::string &str);
+	bool is_digit(const char* const &str);
+
+	bool is_symbol(const std::string &str);
+	bool is_symbol(const char* const &str);
 }
 
 #endif

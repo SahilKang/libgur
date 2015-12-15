@@ -108,4 +108,54 @@ namespace gur
 	{
 		return unclobber(std::string(str)).c_str();
 	}
+
+	bool is_letter(const std::string &str)
+	{
+		return gur::Letter::is_valid(str);
+	}
+
+	bool is_letter(const char* const &str)
+	{
+		return gur::Letter::is_valid(str);
+	}
+
+	bool is_accent(const std::string &str)
+	{
+		return gur::Accent::is_valid(str);
+	}
+
+	bool is_accent(const char* const &str)
+	{
+		return gur::Accent::is_valid(str);
+	}
+
+	bool is_punc(const std::string &str)
+	{
+		return gur::Punctuation::is_valid(str);
+	}
+
+	bool is_punc(const char* const &str)
+	{
+		return gur::Punctuation::is_valid(str);
+	}
+
+	bool is_digit(const std::string &str)
+	{
+		return gur::Digit::is_valid(str);
+	}
+
+	bool is_digit(const char* const &str)
+	{
+		return gur::Digit::is_valid(str);
+	}
+
+	bool is_symbol(const std::string &str)
+	{
+		return gur::Symbol::is_valid(str);
+	}
+
+	bool is_symbol(const char* const &str)
+	{
+		return gur::Symbol::is_valid(str);
+	}
 }
