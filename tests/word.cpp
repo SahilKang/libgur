@@ -490,6 +490,32 @@ BOOST_AUTO_TEST_SUITE(Iterators)
 		BOOST_CHECK_EQUAL(rhs >= sahil.begin() + 1, true);
 	}
 
+	BOOST_AUTO_TEST_CASE(OffsetDereference)
+	{
+		gur::Word sahil(gur::Letter(gur::A4));
+		sahil += gur::Accent(gur::H3);
+		sahil += gur::Letter(gur::A5);
+		sahil += gur::Accent(gur::H4);
+		sahil += gur::Letter(gur::G3);
+
+		const gur::Word const_sahil(sahil);
+
+		gur::Word::iterator iter(sahil.begin());
+		gur::Word::const_iterator const_iter(const_sahil.begin());
+
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A4), iter[0]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H3), iter[1]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A5), iter[2]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H4), iter[3]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::G3), iter[4]);
+
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A4), const_iter[0]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H3), const_iter[1]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::A5), const_iter[2]);
+		BOOST_CHECK_EQUAL(gur::Accent(gur::H4), const_iter[3]);
+		BOOST_CHECK_EQUAL(gur::Letter(gur::G3), const_iter[4]);
+	}
+
 	BOOST_AUTO_TEST_CASE(RangeBasedForLoop)
 	{
 		gur::Word sahil(gur::Letter(gur::A4));
