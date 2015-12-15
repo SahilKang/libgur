@@ -36,6 +36,11 @@ namespace gur
 	Word::iterator::iterator(char_iterator &&i) noexcept : begin(i),
 		iter(std::move(i)) {}
 
+	Character& Word::iterator::operator [](const std::size_t &n)
+	{
+		return *(this->iter[n]);
+	}
+
 	Word::iterator& Word::iterator::operator ++()
 	{
 		++(this->iter);

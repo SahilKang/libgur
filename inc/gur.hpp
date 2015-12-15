@@ -33,7 +33,8 @@ namespace gur
 	class Word;
 
 	class Character {
-	public: Character();
+	public:
+		Character();
 		Character(const Character &c);
 		Character(Character &&c) noexcept;
 		Character(const std::string &c);
@@ -262,6 +263,7 @@ namespace gur
 			::iterator &i);
 		iterator(std::vector<std::unique_ptr<Character> >
 			::iterator &&i) noexcept;
+		Character& operator [](const std::size_t &n);
 		iterator& operator ++();
 		iterator operator ++(int);
 		iterator& operator --();
@@ -314,6 +316,7 @@ namespace gur
 			::const_iterator &i);
 		const_iterator(std::vector<std::unique_ptr<Character> >
 			::const_iterator &&i) noexcept;
+		const Character& operator[](const std::size_t &n) const;
 		const_iterator& operator ++();
 		const_iterator operator ++(int);
 		const_iterator& operator --();

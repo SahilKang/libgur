@@ -38,6 +38,12 @@ namespace gur
 	Word::const_iterator::const_iterator(const_char_iterator &&i)
 		noexcept : begin(i), iter(std::move(i)) {}
 
+	const Character& Word::const_iterator::operator []
+		(const std::size_t &n) const
+	{
+		return *(this->iter[n]);
+	}
+
 	Word::const_iterator& Word::const_iterator::operator ++()
 	{
 		++(this->iter);
