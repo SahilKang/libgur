@@ -263,7 +263,7 @@ namespace gur
 			::iterator &i);
 		iterator(std::vector<std::unique_ptr<Character> >
 			::iterator &&i) noexcept;
-		Character& operator [](const std::size_t &n);
+		Character& operator [](const std::ptrdiff_t &n);
 		iterator& operator ++();
 		iterator operator ++(int);
 		iterator& operator --();
@@ -271,19 +271,17 @@ namespace gur
 		Character& operator *();
 		iterator& operator += (const std::ptrdiff_t &n);
 		iterator& operator -= (const std::ptrdiff_t &n);
-		explicit operator std::ptrdiff_t() const;
 		iterator& operator = (const iterator &i);
 		iterator& operator = (iterator &&i) noexcept;
 		~iterator();
 	private:
-		const std::vector<std::unique_ptr<Character> >::iterator begin;
 		std::vector<std::unique_ptr<Character> >::iterator iter;
 		friend bool operator == (const iterator &lhs,
 			const iterator &rhs);
 		friend bool operator < (const iterator &lhs,
 			const iterator &rhs);
-		friend iterator operator + (iterator lhs, const iterator &rhs);
-		friend iterator operator - (iterator lhs, const iterator &rhs);
+		friend std::ptrdiff_t operator - (Word::iterator lhs,
+			const Word::iterator &rhs);
 	};
 
 	bool operator == (const Word::iterator &lhs,
@@ -300,9 +298,7 @@ namespace gur
 		const std::ptrdiff_t  &n);
 	Word::iterator operator - (Word::iterator lhs,
 		const std::ptrdiff_t  &n);
-	Word::iterator operator + (Word::iterator lhs,
-		const Word::iterator &rhs);
-	Word::iterator operator - (Word::iterator lhs,
+	std::ptrdiff_t operator - (Word::iterator lhs,
 		const Word::iterator &rhs);
 
 	class Word::const_iterator :
@@ -316,7 +312,7 @@ namespace gur
 			::const_iterator &i);
 		const_iterator(std::vector<std::unique_ptr<Character> >
 			::const_iterator &&i) noexcept;
-		const Character& operator[](const std::size_t &n) const;
+		const Character& operator[](const std::ptrdiff_t &n) const;
 		const_iterator& operator ++();
 		const_iterator operator ++(int);
 		const_iterator& operator --();
@@ -324,21 +320,16 @@ namespace gur
 		const Character& operator *();
 		const_iterator& operator += (const std::ptrdiff_t &n);
 		const_iterator& operator -= (const std::ptrdiff_t &n);
-		explicit operator std::ptrdiff_t() const;
 		const_iterator& operator = (const const_iterator &i);
 		const_iterator& operator = (const_iterator &&i) noexcept;
 		~const_iterator();
 	private:
-		const std::vector<std::unique_ptr<Character> >
-			::const_iterator begin;
 		std::vector<std::unique_ptr<Character> >::const_iterator iter;
 		friend bool operator == (const const_iterator &lhs,
 			const const_iterator &rhs);
 		friend bool operator < (const const_iterator &lhs,
 			const const_iterator &rhs);
-		friend const_iterator operator + (const_iterator lhs,
-			const const_iterator &rhs);
-		friend const_iterator operator - (const_iterator lhs,
+		friend std::ptrdiff_t operator - (const_iterator lhs,
 			const const_iterator &rhs);
 	};
 
@@ -358,9 +349,7 @@ namespace gur
 		const std::ptrdiff_t &n);
 	Word::const_iterator operator - (Word::const_iterator lhs,
 		const std::ptrdiff_t &n);
-	Word::const_iterator operator + (Word::const_iterator lhs,
-		const Word::const_iterator &rhs);
-	Word::const_iterator operator - (Word::const_iterator lhs,
+	std::ptrdiff_t operator - (Word::const_iterator lhs,
 		const Word::const_iterator &rhs);
 }
 

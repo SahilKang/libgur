@@ -24,22 +24,22 @@ typedef std::vector<std::unique_ptr<gur::Character> >::const_iterator
 
 namespace gur
 {
-	Word::const_iterator::const_iterator() : begin(), iter() {}
+	Word::const_iterator::const_iterator() : iter() {}
 
 	Word::const_iterator::const_iterator(const Word::const_iterator &i) :
-		begin(i.iter), iter(i.iter) {}
+		iter(i.iter) {}
 
 	Word::const_iterator::const_iterator(Word::const_iterator &&i)
-		noexcept : begin(i.iter), iter(std::move(i.iter)) {}
+		noexcept : iter(std::move(i.iter)) {}
 
 	Word::const_iterator::const_iterator(const const_char_iterator &i) :
-		begin(i), iter(i) {}
+		iter(i) {}
 
 	Word::const_iterator::const_iterator(const_char_iterator &&i)
-		noexcept : begin(i), iter(std::move(i)) {}
+		noexcept : iter(std::move(i)) {}
 
 	const Character& Word::const_iterator::operator []
-		(const std::size_t &n) const
+		(const std::ptrdiff_t &n) const
 	{
 		return *(this->iter[n]);
 	}
@@ -93,11 +93,6 @@ namespace gur
 		this->iter -= n;
 
 		return *this;
-	}
-
-	Word::const_iterator::operator std::ptrdiff_t() const
-	{
-		return std::ptrdiff_t(std::distance(this->begin, this->iter));
 	}
 
 	Word::const_iterator& Word::const_iterator::operator = (
@@ -177,19 +172,9 @@ namespace gur
 		return lhs;
 	}
 
-	Word::const_iterator operator + (Word::const_iterator lhs,
-		const Word::const_iterator &rhs)
-	{	
-		lhs += std::distance(lhs.iter, rhs.iter);
-
-		return lhs;
-	}
-
-	Word::const_iterator operator - (Word::const_iterator lhs,
+	std::ptrdiff_t operator - (Word::const_iterator lhs,
 		const Word::const_iterator &rhs)
 	{
-		lhs -= std::distance(lhs.iter, rhs.iter);
-
-		return lhs;
+		return lhs - rhs;
 	}
 }

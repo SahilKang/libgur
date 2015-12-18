@@ -23,20 +23,19 @@ typedef std::vector<std::unique_ptr<gur::Character> >::iterator char_iterator;
 
 namespace gur
 {
-	Word::iterator::iterator() : begin(), iter() {}
+	Word::iterator::iterator() : iter() {}
 
-	Word::iterator::iterator(const Word::iterator &i) : begin(i.iter),
-		iter(i.iter) {}
+	Word::iterator::iterator(const Word::iterator &i) : iter(i.iter) {}
 
-	Word::iterator::iterator(Word::iterator &&i) noexcept : begin(i.iter),
+	Word::iterator::iterator(Word::iterator &&i) noexcept :
 		iter(std::move(i.iter)) {}
 
-	Word::iterator::iterator(const char_iterator &i) : begin(i), iter(i) {}
+	Word::iterator::iterator(const char_iterator &i) : iter(i) {}
 
-	Word::iterator::iterator(char_iterator &&i) noexcept : begin(i),
+	Word::iterator::iterator(char_iterator &&i) noexcept :
 		iter(std::move(i)) {}
 
-	Character& Word::iterator::operator [](const std::size_t &n)
+	Character& Word::iterator::operator [](const std::ptrdiff_t &n)
 	{
 		return *(this->iter[n]);
 	}
@@ -88,11 +87,6 @@ namespace gur
 		this->iter -= n;
 
 		return *this;
-	}
-
-	Word::iterator::operator std::ptrdiff_t() const
-	{
-		return std::ptrdiff_t(std::distance(this->begin, this->iter));
 	}
 
 	Word::iterator& Word::iterator::operator = (
@@ -152,35 +146,23 @@ namespace gur
 		return !(lhs < rhs);
 	}
 
-	Word::iterator operator + (Word::iterator lhs,
-		const std::ptrdiff_t &n)
+	Word::iterator operator + (Word::iterator lhs, const std::ptrdiff_t &n)
 	{
 		lhs += n;
 
 		return lhs;
 	}
 
-	Word::iterator operator - (Word::iterator lhs,
-		const std::ptrdiff_t &n)
+	Word::iterator operator - (Word::iterator lhs, const std::ptrdiff_t &n)
 	{
 		lhs -= n;
 
 		return lhs;
 	}
 
-	Word::iterator operator + (Word::iterator lhs,
-		const Word::iterator &rhs)
-	{	
-		lhs += std::distance(lhs.iter, rhs.iter);
-
-		return lhs;
-	}
-
-	Word::iterator operator - (Word::iterator lhs,
+	std::ptrdiff_t operator - (Word::iterator lhs,
 		const Word::iterator &rhs)
 	{
-		lhs -= std::distance(lhs.iter, rhs.iter);
-
-		return lhs;
+		return lhs.iter - rhs.iter;
 	}
 }
