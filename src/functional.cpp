@@ -1,5 +1,6 @@
 #include <gur.hpp>
 #include <sstream>
+#include <map>
 
 template<typename T>
 std::string chars_of_type(const std::string &str, T method)
@@ -157,5 +158,22 @@ namespace gur
 	bool is_symbol(const char* const &str)
 	{
 		return gur::Symbol::is_valid(str);
+	}
+
+	std::vector<std::string> sort(const std::vector<std::string> &v)
+	{
+		std::multimap<Word, std::string> words;
+		for (auto &s : v)
+		{
+			words.insert(std::pair<Word, std::string>(Word(s), s));
+		}
+
+		std::vector<std::string> sorted;
+		for (auto &pair : words)
+		{
+			sorted.push_back(pair.second);
+		}
+
+		return sorted;
 	}
 }

@@ -43,6 +43,8 @@ namespace gur
 
 	bool is_symbol(const std::string &str);
 	bool is_symbol(const char* const &str);
+
+	std::vector<std::string> sort(const std::vector<std::string> &v);
 }
 
 #endif
