@@ -215,8 +215,7 @@ namespace gur
 				in.clear();
 			}
 
-			else if (temp_bool(letter, " ")
-				|| temp_bool(letter, "\t")
+			else if (temp_bool(letter, "\t")
 				|| temp_bool(letter, "\n")
 				|| temp_bool(letter, "\r")
 				|| temp_bool(letter, "\r\n"))
