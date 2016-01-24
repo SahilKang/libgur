@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2015 Sahil Kang <sahil.kang@asilaycomputing.com>
+ * Copyright (C) 2015, 2016 Sahil Singh Kang <sahil.kang@asilaycomputing.com>
  *
  * This file is part of libgur.
  *
@@ -23,334 +23,109 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory>
-#include <array>
-#include <iterator>
-#include <functional.hpp>
 
 namespace gur
 {
-	class Word;
-
-	class Character {
+	class String {
 	public:
-		Character();
-		Character(const Character &c);
-		Character(Character &&c) noexcept;
-		Character(const std::string &c);
-		Character(std::string &&c);
-		Character(const char* const &c);
-
-		std::string str() const;
-
-		Character& operator = (const Character &c);
-		Character& operator = (Character &&c) noexcept;
-
-		virtual ~Character() {}
-
-		std::string character;
-		virtual bool is_valid() const = 0;
-
-		friend class Word;
-
-		friend std::ostream& operator << (std::ostream &out,
-			const Character &c);
-		friend std::istream& operator >> (std::istream &in,
-			Character &c);
-		friend bool operator == (const Character &lhs,
-			const Character &rhs);
-	};
-
-	std::ostream& operator << (std::ostream &out, const Character &c);
-	std::istream& operator >> (std::istream &in, Character &c);
-	bool operator == (const Character &lhs, const Character &rhs);
-	bool operator != (const Character &lhs, const Character &rhs);
-	bool operator < (const Character &lhs, const Character &rhs);
-	bool operator > (const Character &lhs, const Character &rhs);
-	bool operator <= (const Character &lhs, const Character &rhs);
-	bool operator >= (const Character &lhs, const Character &rhs);
-
-	class Letter : public Character {
-	public:
-		Letter();
-		Letter(const Character &c);
-		Letter(const std::string &c);
-		Letter(std::string &&c);
-		Letter(const char* const &c);
-
-		static bool is_valid(const char* const &c);
-		static bool is_valid(const std::string &s);
-
-		friend bool operator < (const Letter &lhs, const Letter &rhs);
-	private:
-		static const std::array<const char* const, 35> LETTERS;
-		virtual bool is_valid() const;
-	};
-
-	bool operator < (const Letter &lhs, const Letter &rhs);
-	bool operator > (const Letter &lhs, const Letter &rhs);
-	bool operator <= (const Letter &lhs, const Letter &rhs);
-	bool operator >= (const Letter &lhs, const Letter &rhs);
-
-	class Accent : public Character {
-	public:
-		Accent();
-		Accent(const Character &c);
-		Accent(const std::string &c);
-		Accent(std::string &&c);
-		Accent(const char* const &c);
-
-		static bool is_valid(const char* const &c);
-		static bool is_valid(const std::string &s);
-
-		friend bool operator < (const Accent &lhs, const Accent &rhs);
-	private:
-		static const std::array<const char* const, 17> ACCENTS;
-		virtual bool is_valid() const;
-	};
-
-	bool operator < (const Accent &lhs, const Accent &rhs);
-	bool operator > (const Accent &lhs, const Accent &rhs);
-	bool operator <= (const Accent &lhs, const Accent &rhs);
-	bool operator >= (const Accent &lhs, const Accent &rhs);
-
-	class Punctuation : public Character {
-	public:
-		Punctuation();
-		Punctuation(const Character &c);
-		Punctuation(const std::string &c);
-		Punctuation(std::string &&c);
-		Punctuation(const char* const &c);
-
-		static bool is_valid(const char* const &c);
-		static bool is_valid(const std::string &s);
-
-		friend bool operator < (const Punctuation &lhs,
-			const Punctuation &rhs);
-	private:
-		static const std::array<const char* const, 5> PUNCTUATIONS;
-		virtual bool is_valid() const;
-	};
-
-	bool operator < (const Punctuation &lhs, const Punctuation &rhs);
-	bool operator > (const Punctuation &lhs, const Punctuation &rhs);
-	bool operator <= (const Punctuation &lhs, const Punctuation &rhs);
-	bool operator >= (const Punctuation &lhs, const Punctuation &rhs);
-
-	class Digit : public Character {
-	public:
-		Digit();
-		Digit(const Character &c);
-		Digit(const std::string &c);
-		Digit(std::string &&c);
-		Digit(const char* const &c);
-
-		static bool is_valid(const char* const &c);
-		static bool is_valid(const std::string &s);
-
-		friend bool operator < (const Digit &lhs, const Digit &rhs);
-	private:
-		static const std::array<const char* const, 10> DIGITS;
-		virtual bool is_valid() const;
-	};
-
-	bool operator < (const Digit &lhs, const Digit &rhs);
-	bool operator > (const Digit &lhs, const Digit &rhs);
-	bool operator <= (const Digit &lhs, const Digit &rhs);
-	bool operator >= (const Digit &lhs, const Digit &rhs);
-
-	class Symbol : public Character {
-	public:
-		Symbol();
-		Symbol(const Character &c);
-		Symbol(const std::string &c);
-		Symbol(std::string &&c);
-		Symbol(const char* const &c);
-
-		static bool is_valid(const char* const &c);
-		static bool is_valid(const std::string &s);
-
-		friend bool operator < (const Symbol &lhs, const Symbol &rhs);
-	private:
-		static const std::array<const char* const, 2> SYMBOLS;
-		virtual bool is_valid() const;
-	};
-
-	bool operator < (const Symbol &lhs, const Symbol &rhs);
-	bool operator > (const Symbol &lhs, const Symbol &rhs);
-	bool operator <= (const Symbol &lhs, const Symbol &rhs);
-	bool operator >= (const Symbol &lhs, const Symbol &rhs);
-
-	class Word {
-	public:
-		Word();
-		Word(const Word &w);
-		Word(Word &&w) noexcept;
-		Word(const Character &c);
-		Word(Character &&c) noexcept;
-		Word(const std::string &s);
-		Word(std::string &&s);
-		Word(const char* const &c);
+		String();
+		String(const String &w);
+		String(String &&w);
+		String(const std::string &s);
+		String(const char* const &s);
 
 		std::size_t size() const;
-		Word composition() const;
-		Word letters() const;
-		Word accents() const;
-		Word punctuations() const;
-		Word digits() const;
-		Word symbols() const;
-		void strata(
-			std::vector<Letter> &&letters,
-			std::vector<Accent> &&accents,
-			std::vector<Punctuation> &&punctuations,
-			std::vector<Digit> &&digits,
-			std::vector<Symbol> &&symbols) const;
+		std::string str() const;
+		std::vector<std::string>::iterator begin();
+		std::vector<std::string>::iterator end();
+		std::vector<std::string>::const_iterator begin() const;
+		std::vector<std::string>::const_iterator end() const;
 
-		class iterator;
-		class const_iterator;
+		std::string& operator [] (const std::size_t &i);
+		const std::string& operator [] (const std::size_t &i) const;
+		String& operator += (const String &w);
+		String& operator += (const std::string &s);
+		String& operator += (const char* const &s);
 
-		iterator begin();
-		iterator end();
-		const_iterator begin() const;
-		const_iterator end() const;
+		String& operator = (const String &w);
+		String& operator = (String &&w);
+		String& operator = (const std::string &s);
+		String& operator = (const char* const &s);
 
-		Character& operator [] (const std::size_t &i);
-		const Character& operator [] (const std::size_t &i) const;
-		Word& operator += (const Word &w);
-		Word& operator += (const Character &c);
-		Word& operator += (Character &&c);
-		Word& operator += (const std::string &s);
-		Word& operator += (const char* const &c);
-
-		Word& operator = (const Word &w);
-		Word& operator = (Word &&w) noexcept;
-		Word& operator = (const Character &c);
-		Word& operator = (const std::string &s);
-		Word& operator = (const char* const &c);
-
-		~Word();
+		~String();
 	private:
-		std::vector<std::unique_ptr<Character> > word;
+		std::vector<std::string> word;
 
-		friend std::ostream& operator << (std::ostream& out,
-			const Word &w);
-		friend std::istream& operator >> (std::istream& in, Word &w);
-		friend bool operator == (const Word &lhs, const Word &rhs);
-		friend bool operator < (const Word &lhs, const Word &rhs);
+		friend std::istream& operator >> (std::istream &in, String &w);
+		friend std::ostream& operator << (std::ostream &out,
+			const String &w);
+		friend bool operator == (const String &lhs, const String &rhs);
+		friend bool operator < (const String &lhs, const String &rhs);
 	};
 
-	std::ostream& operator << (std::ostream& out, const Word &w);
-	std::istream& operator >> (std::istream& in, Word &w);
-	Word operator + (Word lhs, const Word &rhs);
-	Word operator + (Word lhs, const Character &rhs);
-	Word operator + (Word lhs, const std::string &rhs);
-	Word operator + (Word lhs, const char* const &rhs);
-	bool operator == (const Word &lhs, const Word &rhs);
-	bool operator != (const Word &lhs, const Word &rhs);
-	bool operator < (const Word &lhs, const Word &rhs);
-	bool operator > (const Word &lhs, const Word &rhs);
-	bool operator <= (const Word &lhs, const Word &rhs);
-	bool operator >= (const Word &lhs, const Word &rhs);
+	std::istream& operator >> (std::istream &in, String &w);
+	std::ostream& operator << (std::ostream &out, const String &w);
+	String operator + (String lhs, const String &rhs);
+	String operator + (String lhs, const std::string &rhs);
+	String operator + (String lhs, const char* const &rhs);
+	bool operator == (const String &lhs, const String &rhs);
+	bool operator != (const String &lhs, const String &rhs);
+	bool operator < (const String &lhs, const String &rhs);
+	bool operator > (const String &lhs, const String &rhs);
+	bool operator <= (const String &lhs, const String &rhs);
+	bool operator >= (const String &lhs, const String &rhs);
 
-	class Word::iterator :
-		public std::iterator<std::random_access_iterator_tag,
-		Character> {
-	public:
-		iterator();
-		iterator(const iterator &i);
-		iterator(iterator &&i) noexcept;
-		iterator(const std::vector<std::unique_ptr<Character> >
-			::iterator &i);
-		iterator(std::vector<std::unique_ptr<Character> >
-			::iterator &&i) noexcept;
-		Character& operator [](const std::ptrdiff_t &n);
-		iterator& operator ++();
-		iterator operator ++(int);
-		iterator& operator --();
-		iterator operator --(int);
-		Character& operator *();
-		iterator& operator += (const std::ptrdiff_t &n);
-		iterator& operator -= (const std::ptrdiff_t &n);
-		iterator& operator = (const iterator &i);
-		iterator& operator = (iterator &&i) noexcept;
-		~iterator();
-	private:
-		std::vector<std::unique_ptr<Character> >::iterator iter;
-		friend bool operator == (const iterator &lhs,
-			const iterator &rhs);
-		friend bool operator < (const iterator &lhs,
-			const iterator &rhs);
-		friend std::ptrdiff_t operator - (Word::iterator lhs,
-			const Word::iterator &rhs);
-	};
+	String letters(const String &str);
+	std::string letters(const std::string &str);
+	const char* letters(const char* const &str);
 
-	bool operator == (const Word::iterator &lhs,
-		const Word::iterator &rhs);
-	bool operator != (const Word::iterator &lhs,
-		const Word::iterator &rhs);
-	bool operator < (const Word::iterator &lhs, const Word::iterator &rhs);
-	bool operator > (const Word::iterator &lhs, const Word::iterator &rhs);
-	bool operator <= (const Word::iterator &lhs,
-		const Word::iterator &rhs);
-	bool operator >= (const Word::iterator &lhs,
-		const Word::iterator &rhs);
-	Word::iterator operator + (Word::iterator lhs,
-		const std::ptrdiff_t  &n);
-	Word::iterator operator - (Word::iterator lhs,
-		const std::ptrdiff_t  &n);
-	std::ptrdiff_t operator - (Word::iterator lhs,
-		const Word::iterator &rhs);
+	String accents(const String &str);
+	std::string accents(const std::string &str);
+	const char* accents(const char* const &str);
 
-	class Word::const_iterator :
-		public std::iterator<std::random_access_iterator_tag,
-		Character> {
-	public:
-		const_iterator();
-		const_iterator(const const_iterator &i);
-		const_iterator(const_iterator &&i) noexcept;
-		const_iterator(const std::vector<std::unique_ptr<Character> >
-			::const_iterator &i);
-		const_iterator(std::vector<std::unique_ptr<Character> >
-			::const_iterator &&i) noexcept;
-		const Character& operator[](const std::ptrdiff_t &n) const;
-		const_iterator& operator ++();
-		const_iterator operator ++(int);
-		const_iterator& operator --();
-		const_iterator operator --(int);
-		const Character& operator *();
-		const_iterator& operator += (const std::ptrdiff_t &n);
-		const_iterator& operator -= (const std::ptrdiff_t &n);
-		const_iterator& operator = (const const_iterator &i);
-		const_iterator& operator = (const_iterator &&i) noexcept;
-		~const_iterator();
-	private:
-		std::vector<std::unique_ptr<Character> >::const_iterator iter;
-		friend bool operator == (const const_iterator &lhs,
-			const const_iterator &rhs);
-		friend bool operator < (const const_iterator &lhs,
-			const const_iterator &rhs);
-		friend std::ptrdiff_t operator - (const_iterator lhs,
-			const const_iterator &rhs);
-	};
+	String puncs(const String &str);
+	std::string puncs(const std::string &str);
+	const char* puncs(const char* const &str);
 
-	bool operator == (const Word::const_iterator &lhs,
-		const Word::const_iterator &rhs);
-	bool operator != (const Word::const_iterator &lhs,
-		const Word::const_iterator &rhs);
-	bool operator < (const Word::const_iterator &lhs,
-		const Word::const_iterator &rhs);
-	bool operator > (const Word::const_iterator &lhs,
-		const Word::const_iterator &rhs);
-	bool operator <= (const Word::const_iterator &lhs,
-		const Word::const_iterator &rhs);
-	bool operator >= (const Word::const_iterator &lhs,
-		const Word::const_iterator &rhs);
-	Word::const_iterator operator + (Word::const_iterator lhs,
-		const std::ptrdiff_t &n);
-	Word::const_iterator operator - (Word::const_iterator lhs,
-		const std::ptrdiff_t &n);
-	std::ptrdiff_t operator - (Word::const_iterator lhs,
-		const Word::const_iterator &rhs);
+	String digits(const String &str);
+	std::string digits(const std::string &str);
+	const char* digits(const char* const &str);
+
+	String symbols(const String &str);
+	std::string symbols(const std::string &str);
+	const char* symbols(const char* const &str);
+
+	String comp(const String &str);
+	std::string comp(const std::string &str);
+	const char* comp(const char* const &str);
+
+	String clobber(const String &str);
+	std::string clobber(const std::string &str);
+	const char* clobber(const char* const &str);
+
+	String unclobber(const String &str);
+	std::string unclobber(const std::string &str);
+	const char* unclobber(const char* const &str);
+
+	bool is_letter(const String &str);
+	bool is_letter(const std::string &str);
+	bool is_letter(const char* const &str);
+
+	bool is_accent(const String &str);
+	bool is_accent(const std::string &str);
+	bool is_accent(const char* const &str);
+
+	bool is_punc(const String &str);
+	bool is_punc(const std::string &str);
+	bool is_punc(const char* const &str);
+
+	bool is_digit(const String &str);
+	bool is_digit(const std::string &str);
+	bool is_digit(const char* const &str);
+
+	bool is_symbol(const String &str);
+	bool is_symbol(const std::string &str);
+	bool is_symbol(const char* const &str);
 }
 
 #endif

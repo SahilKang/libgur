@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2015 Sahil Kang <sahil.kang@asilaycomputing.com>
+ * Copyright (C) 2015, 2016 Sahil Singh Kang <sahil.kang@asilaycomputing.com>
  *
  * This file is part of libgur.
  *
@@ -30,34 +30,6 @@
 namespace util
 {
 	template<std::size_t length>
-	bool compare(const std::array<const char* const, length> &arr,
-		const char* const &lhs, const char* const &rhs,
-		const std::function<bool(
-			const typename std::array<const char* const,
-				length>::iterator,
-			const typename std::array<const char* const,
-				length>::iterator)> &operation)
-	{
-		auto lhs_iterator = std::find_if(arr.begin(), arr.end(),
-			[&lhs] (const char* const &c) -> bool
-			{ return std::strcmp(lhs, c) == 0; });
-
-		auto rhs_iterator = std::find_if(arr.begin(), arr.end(),
-			[&rhs] (const char* const &c) -> bool
-			{ return std::strcmp(rhs, c) == 0; });
-
-		if (lhs_iterator == arr.end() || rhs_iterator == arr.end())
-		{
-			return false; //maybe throw exception
-		}
-
-		else
-		{
-			return operation(lhs_iterator, rhs_iterator);
-		}
-	}
-
-	template<std::size_t length>
 	constexpr bool contains(
 		const std::array<const char* const, length> &arr,
 		const char* const &character)
@@ -85,59 +57,54 @@ namespace util
 		c.insert(std::forward<T>(t));
 	}
 
-	template <class W, class L, class A, class P, class D, class S>
-	void strata(const std::vector<std::unique_ptr<W> > &word,
+	template<class L, class A, class P, class D, class S>
+	void strata(const std::vector<std::string> &str,
 		L &&l, A &&a, P &&p, D &&d, S &&s,
-		const std::function<bool(const std::unique_ptr<W>*)>
-			&is_letter,
-		const std::function<bool(const std::unique_ptr<W>*)>
-			&is_accent,
-		const std::function<bool(const std::unique_ptr<W>*)>
-			&is_punc,
-		const std::function<bool(const std::unique_ptr<W>*)>
-			&is_digit,
-		const std::function<bool(const std::unique_ptr<W>*)>
-			&is_symbol)
+		const std::function<bool(const std::string&)> is_letter,
+		const std::function<bool(const std::string&)> is_accent,
+		const std::function<bool(const std::string&)> is_punc,
+		const std::function<bool(const std::string&)> is_digit,
+		const std::function<bool(const std::string&)> is_symbol)
 	{
-		for (auto &c : word)
+		for (auto &c : str)
 		{
-			if (is_letter(&c))
+			if (is_letter(c))
 			{
-				insert(l, *c);
+				insert(l, c);
 			}
 
-			else if (is_accent(&c))
+			else if (is_accent(c))
 			{
-				insert(a, *c);
+				insert(a, c);
 			}
 
-			else if (is_punc(&c))
+			else if (is_punc(c))
 			{
-				insert(p, *c);
+				insert(p, c);
 			}
 
-			else if (is_digit(&c))
+			else if (is_digit(c))
 			{
-				insert(d, *c);
+				insert(d, c);
 			}
 
-			else if (is_symbol(&c))
+			else if (is_symbol(c))
 			{
-				insert(s, *c);
+				insert(s, c);
 			}
 		}
 	}
 
-	template <class W, class L>
-	void strata(const std::vector<std::unique_ptr<W> > &word,
+	template <class L>
+	void strata(const std::vector<std::string> &str,
 		L &&l,
-		const std::function<bool(const std::unique_ptr<W>*)> &pred)
+		const std::function<bool(const std::string&)> &pred)
 	{
-		for (auto &c : word)
+		for (auto &s : str)
 		{
-			if (pred(&c))
+			if (pred(s))
 			{
-				insert(l, *c);
+				insert(l, s);
 			}
 		}
 	}

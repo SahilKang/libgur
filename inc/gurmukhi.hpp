@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2015 Sahil Kang <sahil.kang@asilaycomputing.com>
+ * Copyright (C) 2015, 2016 Sahil Singh Kang <sahil.kang@asilaycomputing.com>
  *
  * This file is part of libgur.
  *
