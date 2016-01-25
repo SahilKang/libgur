@@ -20,20 +20,19 @@
 #include <gur.hpp>
 #include <gurmukhi.hpp>
 #include <unordered_map>
-#include <cstring>
 
 struct Pair
 {
-	Pair(const char* const f, const char* const s) : first(f), second(s) {}
-	const char* const first;
-	const char* const second;
+	Pair(const std::string &f, const std::string &s) :
+		first(f), second(s) {}
+	std::string first;
+	std::string second;
 };
 
 bool operator == (const Pair &lhs, const Pair &rhs);
 bool operator == (const Pair &lhs, const Pair &rhs)
 {
-	return (std::strcmp(lhs.first, rhs.first) == 0
-		&& std::strcmp(lhs.second, rhs.second) == 0);
+	return lhs.first == rhs.first && lhs.second == rhs.second;
 }
 
 namespace std
@@ -43,27 +42,14 @@ namespace std
 	{
 		std::size_t operator ()(const Pair &p) const
 		{
-			std::string s(p.first);
-			s += p.second;
-
 			std::hash<std::string> hasher;
-			return hasher(s);
-		}
-	};
-
-	template<>
-	struct hash<const char* const>
-	{
-		std::size_t operator ()(const char* const &c) const
-		{
-			std::hash<std::string> hasher;
-			return hasher(std::string(c));
+			return hasher(p.first + p.second);
 		}
 	};
 }
 
-static const std::unordered_map<Pair, const char* const>
-pair_to_char =
+static const std::unordered_map<Pair, std::string>
+pair_to_str =
 {
 	{ Pair(gur::A1, gur::I1), gur::M5 },
 	{ Pair(gur::A1, gur::I2), gur::N1 },
@@ -82,8 +68,8 @@ pair_to_char =
 	{ Pair(gur::F2, gur::H2), gur::P4 }
 };
 
-static const std::unordered_map<const char* const, Pair>
-char_to_pair =
+static const std::unordered_map<std::string, Pair>
+str_to_pair =
 {
 	{ gur::M5, Pair(gur::A1, gur::I1) },
 	{ gur::N1, Pair(gur::A1, gur::I2) },
@@ -109,10 +95,10 @@ namespace gur
 		String output;
 		for (unsigned int i = 0; i < str.size() - 1; i += 2)
 		{
-			Pair pair(str[i].c_str(), str[i + 1].c_str());
-			auto found = pair_to_char.find(pair);
+			Pair pair(str[i], str[i + 1]);
+			auto found = pair_to_str.find(pair);
 
-			if (found != pair_to_char.end())
+			if (found != pair_to_str.end())
 			{
 				output += found->second;
 			}
@@ -147,9 +133,9 @@ namespace gur
 		String output;
 		for (auto &c : str)
 		{
-			auto found = char_to_pair.find(c.c_str());
+			auto found = str_to_pair.find(c);
 
-			if (found != char_to_pair.end())
+			if (found != str_to_pair.end())
 			{
 				output += found->second.first;
 				output += found->second.second;

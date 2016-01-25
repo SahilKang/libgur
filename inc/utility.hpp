@@ -22,22 +22,21 @@
 
 #include <array>
 #include <vector>
+#include <string>
 #include <functional>
-#include <cstring>
 #include <algorithm>
-#include <memory>
 
 namespace util
 {
 	template<std::size_t length>
 	constexpr bool contains(
-		const std::array<const char* const, length> &arr,
-		const char* const &character)
+		const std::array<const std::string, length> &arr,
+		const std::string &character)
 	{
 		return std::find_if(arr.begin(), arr.end(),
-			[&character] (const char* const &c) -> bool
+			[&character] (const std::string &c) -> bool
 			{
-				return std::strcmp(character, c) == 0;
+				return character == c;
 			}) != arr.end();
 	}
 

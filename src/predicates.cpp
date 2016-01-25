@@ -22,7 +22,7 @@
 #include <utility.hpp>
 #include <array>
 
-static const std::array<const char* const, 35> LETTERS
+static const std::array<const std::string, 35> LETTERS
 {
 	gur::A1, gur::A2, gur::A3, gur::A4, gur::A5,
 	gur::B1, gur::B2, gur::B3, gur::B4, gur::B5,
@@ -33,7 +33,7 @@ static const std::array<const char* const, 35> LETTERS
 	gur::G1, gur::G2, gur::G3, gur::G4, gur::G5
 };
 
-static const std::array<const char* const, 17> ACCENTS
+static const std::array<const std::string, 17> ACCENTS
 {
 	gur::H3, gur::H4, gur::H5,
 	gur::I1, gur::I2, gur::I3, gur::I4, gur::I5,
@@ -45,19 +45,19 @@ static const std::array<const char* const, 17> ACCENTS
 	gur::H2
 };
 
-static const std::array<const char* const, 3> PUNCS
+static const std::array<const std::string, 3> PUNCS
 {
 	gur::O2,
 	gur::Q1, gur::Q2
 };
 
-static const std::array<const char* const, 10> DIGITS
+static const std::array<const std::string, 10> DIGITS
 {
 	gur::K1, gur::K2, gur::K3, gur::K4, gur::K5,
 	gur::L1, gur::L2, gur::L3, gur::L4, gur::L5
 };
 
-static const std::array<const char* const, 2> SYMBOLS
+static const std::array<const std::string, 2> SYMBOLS
 {
 	gur::J5,
 	gur::M1
