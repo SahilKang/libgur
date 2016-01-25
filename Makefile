@@ -22,7 +22,7 @@ AR = ar
 ARFLAGS = rvs
 
 all: libgur.so libgur.a
-test: unit_tests
+test: libgur.a unit_tests
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
