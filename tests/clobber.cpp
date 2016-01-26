@@ -27,11 +27,11 @@ BOOST_AUTO_TEST_SUITE(Clobbers)
 	BOOST_AUTO_TEST_SUITE(Clobber)
 		BOOST_AUTO_TEST_CASE(String)
 		{
-			std::string clobbered(gur::M5 + gur::A4 + gur::E3
+			const std::string clobbered(gur::M5 + gur::A4 + gur::E3
 				+ gur::H5 + gur::M2 + gur::H1);
-			std::string unclobbered(gur::A1 + gur::I1 + gur::A4
-				+ gur::E3 + gur::H5 + gur::A2 + gur::H3
-				+ gur::H1);
+			const std::string unclobbered(gur::A1 + gur::I1
+				+ gur::A4 + gur::E3 + gur::H5 + gur::A2
+				+ gur::H3 + gur::H1);
 
 			gur::String str(unclobbered);
 			str = gur::clobber(str);
@@ -41,11 +41,11 @@ BOOST_AUTO_TEST_SUITE(Clobbers)
 
 		BOOST_AUTO_TEST_CASE(StdString)
 		{
-			std::string clobbered(gur::M5 + gur::A4 + gur::E3
+			const std::string clobbered(gur::M5 + gur::A4 + gur::E3
 				+ gur::H5 + gur::M2 + gur::H1);
-			std::string unclobbered(gur::A1 + gur::I1 + gur::A4
-				+ gur::E3 + gur::H5 + gur::A2 + gur::H3
-				+ gur::H1);
+			const std::string unclobbered(gur::A1 + gur::I1
+				+ gur::A4 + gur::E3 + gur::H5 + gur::A2
+				+ gur::H3 + gur::H1);
 
 			std::string str(unclobbered);
 			str = gur::clobber(str);
@@ -55,16 +55,60 @@ BOOST_AUTO_TEST_SUITE(Clobbers)
 
 		BOOST_AUTO_TEST_CASE(CharPointer)
 		{
-			std::string clobbered(gur::M5 + gur::A4 + gur::E3
+			const std::string clobbered(gur::M5 + gur::A4 + gur::E3
 				+ gur::H5 + gur::M2 + gur::H1);
-			std::string unclobbered(gur::A1 + gur::I1 + gur::A4
-				+ gur::E3 + gur::H5 + gur::A2 + gur::H3
-				+ gur::H1);
+			const std::string unclobbered(gur::A1 + gur::I1
+				+ gur::A4 + gur::E3 + gur::H5 + gur::A2
+				+ gur::H3 + gur::H1);
 
 			const char* str = unclobbered.c_str();
 			str = gur::clobber(str);
 
 			BOOST_CHECK_EQUAL(std::string(str), clobbered);
+		}
+	BOOST_AUTO_TEST_SUITE_END()
+
+	BOOST_AUTO_TEST_SUITE(Unclobber)
+		BOOST_AUTO_TEST_CASE(String)
+		{
+			const std::string clobbered(gur::M5 + gur::A4 + gur::E3
+				+ gur::H5 + gur::M2 + gur::H1);
+			const std::string unclobbered(gur::A1 + gur::I1
+				+ gur::A4 + gur::E3 + gur::H5 + gur::A2
+				+ gur::H3 + gur::H1);
+
+			gur::String str(clobbered);
+			str = gur::unclobber(str);
+
+			BOOST_CHECK_EQUAL(str.str(), unclobbered);
+		}
+
+		BOOST_AUTO_TEST_CASE(StdString)
+		{
+			const std::string clobbered(gur::M5 + gur::A4 + gur::E3
+				+ gur::H5 + gur::M2 + gur::H1);
+			const std::string unclobbered(gur::A1 + gur::I1
+				+ gur::A4 + gur::E3 + gur::H5 + gur::A2
+				+ gur::H3 + gur::H1);
+
+			std::string str(clobbered);
+			str = gur::unclobber(str);
+
+			BOOST_CHECK_EQUAL(str, unclobbered);
+		}
+
+		BOOST_AUTO_TEST_CASE(CharPointer)
+		{
+			const std::string clobbered(gur::M5 + gur::A4 + gur::E3
+				+ gur::H5 + gur::M2 + gur::H1);
+			const std::string unclobbered(gur::A1 + gur::I1
+				+ gur::A4 + gur::E3 + gur::H5 + gur::A2
+				+ gur::H3 + gur::H1);
+
+			const char* str = clobbered.c_str();
+			str = gur::unclobber(str);
+
+			BOOST_CHECK_EQUAL(std::string(str), unclobbered);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
