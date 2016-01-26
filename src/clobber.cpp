@@ -93,26 +93,31 @@ namespace gur
 	String clobber(const String &str)
 	{
 		String output;
-		for (unsigned int i = 0; i < str.size() - 1; i += 2)
+		for (std::size_t i = 0; i < str.size();)
 		{
-			Pair pair(str[i], str[i + 1]);
-			auto found = pair_to_str.find(pair);
-
-			if (found != pair_to_str.end())
+			if (i != str.size() - 1)
 			{
-				output += found->second;
+				Pair pair(str[i], str[i + 1]);
+				auto found = pair_to_str.find(pair);
+
+				if (found != pair_to_str.end())
+				{
+					output += found->second;
+					i += 2;
+				}
+
+				else
+				{
+					output += str[i];
+					++i;
+				}
 			}
 
 			else
 			{
 				output += str[i];
-				output += str[i + 1];
+				++i;
 			}
-		}
-
-		if (str.size() % 2 == 1)
-		{
-			output += str[str.size() - 1];
 		}
 
 		return output;
