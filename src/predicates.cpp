@@ -67,76 +67,76 @@ namespace gur
 {
 	bool is_letter(const String &str)
 	{
-		return is_letter(str.str().c_str());
+		return is_letter(str.str());
 	}
 
 	bool is_letter(const std::string &str)
 	{
-		return is_letter(str.c_str());
+		return util::contains(LETTERS, str);
 	}
 
 	bool is_letter(const char* const &str)
 	{
-		return util::contains(LETTERS, str);
+		return is_letter(std::string(str));
 	}
 
 	bool is_accent(const String &str)
 	{
-		return is_accent(str.str().c_str());
+		return is_accent(str.str());
 	}
 
 	bool is_accent(const std::string &str)
 	{
-		return is_accent(str.c_str());
+		return util::contains(ACCENTS, str);
 	}
 
 	bool is_accent(const char* const &str)
 	{
-		return util::contains(ACCENTS, str);
+		return is_accent(std::string(str));
 	}
 
 	bool is_punc(const String &str)
 	{
-		return is_punc(str.str().c_str());
+		return is_punc(str.str());
 	}
 
 	bool is_punc(const std::string &str)
 	{
-		return is_punc(str.c_str());
+		return util::contains(PUNCS, str);
 	}
 
 	bool is_punc(const char* const &str)
 	{
-		return util::contains(PUNCS, str);
+		return is_punc(std::string(str));
 	}
 
 	bool is_digit(const String &str)
 	{
-		return is_digit(str.str().c_str());
+		return is_digit(str.str());
 	}
 
 	bool is_digit(const std::string &str)
 	{
-		return is_digit(str.c_str());
+		return util::contains(DIGITS, str);
 	}
 
 	bool is_digit(const char* const &str)
 	{
-		return util::contains(DIGITS, str);
+		return is_digit(std::string(str));
 	}
 
 	bool is_symbol(const String &str)
 	{
-		return is_symbol(str.str().c_str());
+		return is_symbol(str.str());
 	}
 
 	bool is_symbol(const std::string &str)
 	{
-		return is_symbol(str.c_str());
+		return util::contains(SYMBOLS, str);
 	}
 
 	bool is_symbol(const char* const &str)
 	{
-		return util::contains(SYMBOLS, str);
+		return is_symbol(std::string(str));
 	}
 }
